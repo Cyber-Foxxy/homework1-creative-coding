@@ -1,0 +1,8 @@
+Comparing the Graphical User Interface (GUI) and the Command-Line Interface (CLI) reveals several key differences:
+
+ GUIs are generally easier to use, especially for beginners, as they rely on visual elements like windows, icons, and menus.
+CLIs, require users to use text commands, which can be difficult for those that dont know or understand the commands.
+CLIs use less memory are faster because they don’t need to load graphical elements. 
+GUIs, more user-friendly, need more memory and processing power. GUIs allow for easier multitasking by allowing users to open several windows and applications at the same time.
+CLIs can also multitask, but it's more complicated to manage
+In summary, GUIs are more user-friendly, CLIs provide greater control and efficiency.
