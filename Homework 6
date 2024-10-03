@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Welcome to My Homepage</h1>
+    <h2>My Favorite Hobbies</h2>
+    <ul>
+        <li>Reading</li>
+        <li>Painting</li>
+        <li>Watchinh anime and being with my family</li>
+    </ul>
+    <h2>My Favorite Restaurants</h2>
+    <ul>
+        <li><a href="https:https://www.facebook.com/grandbarandrestuarant/menu/</a></li>
+        <li><a href="https:https://www.mtpangea.com/</a></li>
+        <li><a href="https:https://nagoyahouse.com/</a></li>
+    </ul>
+    <h2>My Favorite Websites</h2>
+    <ol>
+        <li><a href="https:https://www.wcostream.tv/dubbed-anime-list</a></li>
+        <li><a href="https://www.twitch.tv/theflawgdawg</a></li>
+        <li><a href="https://www.bing.com/images/create/</a></li>
+    </ol>
+    <nav>
+        <a href="page2.html">Go to Page 2</a> | 
+        <a href="page3.html">Go to Contact Us Page</a>
+    </nav>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2</title>
+</head>
+<body>
+    <h1>Wrote a story</h1>
+    <p>In a serene forest where the veil between the earthly and the divine is thin, a Lady Archangel descended, her wings shimmering with celestial light. She happened upon a Kitsune, a mystical Japanese fox spirit, known for its intelligence and magical abilities. The Kitsune, with its multiple tails, bowed respectfully to the Archangel, recognizing her divine aura. They shared stories of the heavens and the earth, finding common ground in their guardianship of their respective realms. This meeting marked the beginning of an unspoken pact between the celestial and the terrestrial, as they vowed to protect the balance of the world together.</p>
+    <img src="https://scontent-den2-1.xx.fbcdn.net/v/t31.18172-8/10481943_10204130400637596_6828074170985634688_o.jpg?_nc_cat=107&ccb=1-7&_nc_sid=f798df&_nc_ohc=y1ksIxPTP24Q7kNvgGn512Y&_nc_ht=scontent-den2-1.xx&_nc_gid=ABweicANA7T15QiNWLQsNxZ&oh=00_AYBqnNyuj07ojF7iE9-QNonXVBvAKyE8YphXs-85vxaEXA&oe=672639B0" alt="Artwork or Image">
+    <img src="https://scontent-den2-1.xx.fbcdn.net/v/t39.30808-6/411452552_10222883923463946_1080918252107980850_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=f727a1&_nc_ohc=WwJCensZ9LwQ7kNvgGC4E6U&_nc_ht=scontent-den2-1.xx&_nc_gid=AORZrLnKZuE4AdGvGrejv-s&oh=00_AYBtCpeifFRTFt-zALS7Kzg9EfQWL8fP6hSeOGrK44nVbQ&oe=67048359" alty="Artwork or image">
+    <nav>
+        <a href="index.html">Go to Home Page</a> | 
+        <a href="page3.html">Go to Contact Us Page</a>
+    </nav>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <form action="submit_form.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <label for="terms">Accept Terms of Agreement:</label>
+        <input type="checkbox" id="terms" name="terms" value="yes" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <nav>
+        <a href="index.html">Go to Home Page</a> | 
+        <a href="page2.html">Go to Page 2</a>
+    </nav>
+</body>
+</html>
