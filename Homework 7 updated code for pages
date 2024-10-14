@@ -1,0 +1,35 @@
+/* External styles */
+
+.body-style {
+    background-color: #f0f8ff;
+    font-family: Arial, sans-serif;
+}
+
+.heading-style {
+    color: #ff4500;
+    text-decoration: underline;
+}
+
+.list-style {
+    list-style-type: square;
+    color: #4682b4;
+}
+
+#main-body {
+    background-color: #f0f8ff;
+    font-family: Arial, sans-serif;
+}
+
+#main-heading {
+    color: rgba(52, 19, 52, 0.418);
+}
+
+#favorite-hobbies {
+    color: #ff4500;
+    text-decoration: underline;
+}
+
+#restaurants-list, #websites-list {
+    list-style-type: square;
+    color: #4682b4;
+}
