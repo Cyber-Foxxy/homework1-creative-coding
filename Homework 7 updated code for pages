@@ -33,3 +33,101 @@
     list-style-type: square;
     color: #4682b4;
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id="main-body">
+    <h1 id="main-heading" class="heading-style">Welcome to My Homepage</h1>
+    <h2 id="favorite-hobbies" class="heading-style">My Favorite Hobbies</h2>
+    <ul id="hobbies-list" class="list-style">
+        <li>Reading</li>
+        <li>Painting</li>
+        <li>Watching anime and being with my family</li>
+    </ul>
+    <h2 id="favorite-restaurants" class="heading-style">My Favorite Restaurants</h2>
+    <ul id="restaurants-list" class="list-style">
+        <li><a href="https://www.facebook.com/grandbarandrestuarant/menu/">Grand Bar and Restaurant</a></li>
+        <li><a href="https://www.mtpangea.com/">Pangea</a></li>
+        <li><a href="https://nagoyahouse.com/">Nagoya House</a></li>
+    </ul>
+    <h2 id="favorite-websites" class="heading-style">My Favorite Websites</h2>
+    <ol id="websites-list" class="list-style">
+        <li><a href="https://www.wcostream.tv/dubbed-anime-list">WCO Stream</a></li>
+        <li><a href="https://www.twitch.tv/theflawgdawg">Twitch: TheFlawgDawg</a></li>
+        <li><a href="https://www.bing.com/images/create/">Bing Image Creator</a></li>
+    </ol>
+    <nav>
+        <a href="page2.html">Go to Page 2</a> | 
+        <a href="page3.html">Go to Contact Us Page</a>
+    </nav>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        p.story {
+            background-image: url('https://th.bing.com/th/id/OIG2.iAJVX.BJqfuMiOmyddFm?w=1024&h=1024&rs=1&pid=ImgDetMain');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="body-style">
+    <h1 class="heading-style">Wrote a story</h1>
+    <p class="story">
+        In a serene forest where the veil between the earthly and the divine is thin, a Lady Archangel descended, her wings shimmering with celestial light. She happened upon a Kitsune, a mystical Japanese fox spirit, known for its intelligence and magical abilities. The Kitsune, with its multiple tails, bowed respectfully to the Archangel, recognizing her divine aura. They shared stories of the heavens and the earth, finding common ground in their guardianship of their respective realms. This meeting marked the beginning of an unspoken pact between the celestial and the terrestrial, as they vowed to protect the balance of the world together.
+    </p>
+    <img src="https://scontent-den2-1.xx.fbcdn.net/v/t31.18172-8/10481943_10204130400637596_6828074170985634688_o.jpg?_nc_cat=107&ccb=1-7&_nc_sid=f798df&_nc_ohc=y1ksIxPTP24Q7kNvgGn512Y&_nc_ht=scontent-den2-1.xx&_nc_gid=ABweicANA7T15QiNWLQsNxZ&oh=00_AYBqnNyuj07ojF7iE9-QNonXVBvAKyE8YphXs-85vxaEXA&oe=672639B0" alt="Artwork or Image">
+    <img src="https://scontent-den2-1.xx.fbcdn.net/v/t39.30808-6/411452552_10222883923463946_1080918252107980850_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=f727a1&_nc_ohc=WwJCensZ9LwQ7kNvgGC4E6U&_nc_ht=scontent-den2-1.xx&_nc_gid=AORZrLnKZuE4AdGvGrejv-s&oh=00_AYBtCpeifFRTFt-zALS7Kzg9EfQWL8fP6hSeOGrK44nVbQ&oe=67048359" alt="Artwork or image">
+    <nav>
+        <a href="index.html">Go to Home Page</a> | 
+        <a href="page3.html">Go to Contact Us Page</a>
+    </nav>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body class="body-style">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <form action="submit_form.php" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="terms" name="terms" value="yes" required>
+                <label class="form-check-label" for="terms">Accept Terms of Agreement</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <nav>
+            <a href="index.html">Go to Home Page</a> | 
+            <a href="page2.html">Go to Page 2</a>
+        </nav>
+    </div>
+</body>
+</html>
