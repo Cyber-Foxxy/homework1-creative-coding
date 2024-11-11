@@ -1,0 +1,127 @@
+let player;
+let obstacles = [];
+let staticObstacles = [];
+let exitX, exitY, exitSize;
+
+function setup() {
+  createCanvas(800, 600);
+  player = new Player();
+  for (let i = 0; i < 3; i++) {
+    obstacles.push(new Obstacle(random(width), random(height), random(20, 50), randomColor()));
+  }
+  exitX = width - 50;
+  exitY = height - 50;
+  exitSize = 40;
+}
+
+function draw() {
+  background(220);
+
+  // Draw and move player
+  player.update();
+  player.show();
+
+  // Draw and move obstacles
+  for (let obs of obstacles) {
+    obs.update();
+    obs.show();
+  }
+
+  // Draw static obstacles
+  for (let staticObs of staticObstacles) {
+    staticObs.show();
+  }
+
+  // Draw exit
+  fill(0, 255, 0);
+  rect(exitX, exitY, exitSize, exitSize);
+
+  // Check for win condition
+  if (player.x > exitX && player.x < exitX + exitSize && player.y > exitY && player.y < exitY + exitSize) {
+    textSize(32);
+    fill(0);
+    text('You Won!', width / 2 - 50, height / 2);
+    noLoop();
+  }
+}
+
+function keyPressed() {
+  if (key === 'W') player.move(0, -10);
+  if (key === 'A') player.move(-10, 0);
+  if (key === 'S') player.move(0, 10);
+  if (key === 'D') player.move(10, 0);
+}
+
+function mousePressed() {
+  staticObstacles.push(new StaticObstacle(mouseX, mouseY, 40, randomColor()));
+}
+
+class Player {
+  constructor() {
+    this.x = width / 2;
+    this.y = height / 2;
+    this.size = 30;
+    this.color = [0, 0, 255];
+  }
+
+  move(dx, dy) {
+    this.x += dx;
+    this.y += dy;
+  }
+
+  update() {
+    // Keep player within canvas bounds
+    this.x = constrain(this.x, 0, width);
+    this.y = constrain(this.y, 0, height);
+  }
+
+  show() {
+    fill(this.color);
+    ellipse(this.x, this.y, this.size);
+  }
+}
+
+class Obstacle {
+  constructor(x, y, size, color) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.color = color;
+    this.dx = random(-3, 3);
+    this.dy = random(-3, 3);
+  }
+
+  update() {
+    this.x += this.dx;
+    this.y += this.dy;
+
+    // Check for wrapping around the canvas
+    if (this.x > width) this.x = 0;
+    if (this.x < 0) this.x = width;
+    if (this.y > height) this.y = 0;
+    if (this.y < 0) this.y = height;
+  }
+
+  show() {
+    fill(this.color);
+    ellipse(this.x, this.y, this.size);
+  }
+}
+
+class StaticObstacle {
+  constructor(x, y, size, color) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.color = color;
+  }
+
+  show() {
+    fill(this.color);
+    rect(this.x, this.y, this.size, this.size);
+  }
+}
+
+function randomColor() {
+  return [random(255), random(255), random(255)];
+}
