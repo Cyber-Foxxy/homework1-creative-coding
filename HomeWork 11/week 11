@@ -1,0 +1,125 @@
+let player;
+let obstacles = [];
+let staticObstacle = null;
+let exit;
+
+function setup() {
+    createCanvas(800, 600);
+    player = new Player();
+    obstacles.push(new Obstacle(100, 100, 30, 30, 'red', 2, 2));
+    obstacles.push(new Obstacle(300, 200, 50, 50, 'green', -3, 3));
+    exit = new Exit(750, 550, 40, 40, 'yellow');
+}
+
+function draw() {
+    background(220);
+    player.move();
+    player.display();
+    for (let obstacle of obstacles) {
+        obstacle.move();
+        obstacle.display();
+    }
+    if (staticObstacle) {
+        staticObstacle.display();
+    }
+    exit.display();
+    checkWin();
+}
+
+function mousePressed() {
+    if (!staticObstacle) {
+        staticObstacle = new StaticObstacle(mouseX, mouseY, 40, 40, 'purple');
+    }
+}
+
+function checkWin() {
+    if (player.x < exit.x + exit.width &&
+        player.x + player.width > exit.x &&
+        player.y < exit.y + exit.height &&
+        player.y + player.height > exit.y) {
+        alert('You won!');
+        noLoop();
+    }
+}
+
+class Player {
+    constructor() {
+        this.x = 50;
+        this.y = 50;
+        this.width = 20;
+        this.height = 20;
+        this.color = 'blue';
+        this.speed = 5;
+    }
+
+    move() {
+        if (keyIsDown(UP_ARROW)) this.y -= this.speed;
+        if (keyIsDown(DOWN_ARROW)) this.y += this.speed;
+        if (keyIsDown(LEFT_ARROW)) this.x -= this.speed;
+        if (keyIsDown(RIGHT_ARROW)) this.x += this.speed;
+    }
+
+    display() {
+        fill(this.color);
+        rect(this.x, this.y, this.width, this.height);
+    }
+}
+
+class Obstacle {
+    constructor(x, y, width, height, color, dx, dy) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+        this.dx = dx;
+        this.dy = dy;
+    }
+
+    move() {
+        this.x += this.dx;
+        this.y += this.dy;
+
+        if (this.x < 0 || this.x + this.width > width) {
+            this.dx *= -1;
+        }
+        if (this.y < 0 || this.y + this.height > height) {
+            this.dy *= -1;
+        }
+    }
+
+    display() {
+        fill(this.color);
+        rect(this.x, this.y, this.width, this.height);
+    }
+}
+
+class StaticObstacle {
+    constructor(x, y, width, height, color) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+    }
+
+    display() {
+        fill(this.color);
+        rect(this.x, this.y, this.width, this.height);
+    }
+}
+
+class Exit {
+    constructor(x, y, width, height, color) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+    }
+
+    display() {
+        fill(this.color);
+        rect(this.x, this.y, this.width, this.height);
+    }
+}
