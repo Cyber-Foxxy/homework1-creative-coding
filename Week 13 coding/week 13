@@ -1,0 +1,149 @@
+let player;
+let obstacles = [];
+let exit;
+let staticObjects = [];
+
+function setup() {
+    createCanvas(800, 600);
+    createPlayer();
+    createObstacles(5);
+    createExit();
+}
+
+function draw() {
+    background(220);
+    movePlayer();
+    displayPlayer();
+    moveObstacles();
+    displayObstacles();
+    moveStaticObjects();
+    displayStaticObjects();
+    displayExit();
+    drawBorders();
+    checkWin();
+}
+
+function createPlayer() {
+    player = {
+        x: 50,
+        y: 50,
+        width: 20,
+        height: 20,
+        color: 'blue',
+        speed: 5
+    };
+}
+
+function movePlayer() {
+    if (keyIsDown(UP_ARROW)) player.y -= player.speed;
+    if (keyIsDown(DOWN_ARROW)) player.y += player.speed;
+    if (keyIsDown(LEFT_ARROW)) player.x -= player.speed;
+    if (keyIsDown(RIGHT_ARROW)) player.x += player.speed;
+}
+
+function displayPlayer() {
+    fill(player.color);
+    rect(player.x, player.y, player.width, player.height);
+}
+
+function mousePressed() {
+    staticObjects.push({
+        x: mouseX,
+        y: mouseY,
+        width: random(20, 50),
+        height: random(20, 50),
+        color: color(random(255), random(255), random(255)),
+        dx: random(-2, 2),
+        dy: random(-2, 2)
+    });
+}
+
+function moveStaticObjects() {
+    for (let obj of staticObjects) {
+        obj.x += obj.dx;
+        obj.y += obj.dy;
+
+        if (obj.x < 0) obj.x = width;
+        if (obj.x > width) obj.x = 0;
+        if (obj.y < 0) obj.y = height;
+        if (obj.y > height) obj.y = 0;
+    }
+}
+
+function displayStaticObjects() {
+    for (let obj of staticObjects) {
+        fill(obj.color);
+        rect(obj.x, obj.y, obj.width, obj.height);
+    }
+}
+
+function createObstacles(num) {
+    for (let i = 0; i < num; i++) {
+        let obstacle = {
+            x: random(width),
+            y: random(height),
+            width: random(20, 50),
+            height: random(20, 50),
+            color: color(random(255), random(255), random(255)),
+            dx: random(-2, 2),
+            dy: random(-2, 2)
+        };
+        obstacles.push(obstacle);
+    }
+}
+
+function moveObstacles() {
+    for (let obstacle of obstacles) {
+        obstacle.x += obstacle.dx;
+        obstacle.y += obstacle.dy;
+
+        if (obstacle.x < 0) obstacle.x = width;
+        if (obstacle.x > width) obstacle.x = 0;
+        if (obstacle.y < 0) obstacle.y = height;
+        if (obstacle.y > height) obstacle.y = 0;
+    }
+}
+
+function displayObstacles() {
+    for (let obstacle of obstacles) {
+        fill(obstacle.color);
+        rect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+    }
+}
+
+function drawBorders() {
+    noFill();
+    stroke(0);
+    rect(0, 0, width, height);
+}
+
+function createExit() {
+    exit = {
+        x: width - 50,
+        y: height - 50,
+        width: 40,
+        height: 40,
+        color: 'yellow'
+    };
+}
+
+function displayExit() {
+    fill(exit.color);
+    rect(exit.x, exit.y, exit.width, exit.height);
+}
+
+function checkWin() {
+    if (player.x < exit.x + exit.width &&
+        player.x + player.width > exit.x &&
+        player.y < exit.y + exit.height &&
+        player.y + player.height > exit.y) {
+        displayWinMessage();
+        noLoop();
+    }
+}
+
+function displayWinMessage() {
+    textSize(32);
+    fill('green');
+    text('You win!', width / 2 - 50, height / 2);
+}
