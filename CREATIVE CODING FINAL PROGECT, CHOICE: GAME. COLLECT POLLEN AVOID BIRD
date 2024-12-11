@@ -1,0 +1,268 @@
+let bee;
+let bird;
+let flower;
+let petals;
+let pollenCount = 0;
+let petalsRemaining = 10;
+let gameStarted = false;
+let beeLives = 3;
+let gameWon = false;
+
+function setup() {
+  createCanvas(800, 600);
+  flower = createVector(width / 2, height / 2);
+  bee = new Bee();
+  bird = new Bird();
+  petals = createPetals();
+}
+
+function draw() {
+  background(200, 225, 255);
+
+  if (!gameStarted) {
+    fill(0);
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text("Click to Begin", width / 2, height / 2);
+    return;
+  }
+
+  if (gameWon) {
+    fill(0);
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text("Click to Restart", width / 2, height / 2);
+    return;
+  }
+
+  // Draw the sunflower
+  drawSunflower(flower.x, flower.y);
+
+  // Move and display the bee
+  bee.move();
+  bee.display();
+
+  // Move and display the bird
+  bird.move();
+  bird.display();
+
+  // Check for bee landing on sunflower
+  if (bee.touches(flower)) {
+    bee.changeColor();
+    pollenCount++;
+    if (pollenCount >= 100 && petalsRemaining > 0) {
+      petalsRemaining--;
+      pollenCount = 0;
+      // Mark a petal as fallen
+      petals[petals.length - petalsRemaining - 1].fallen = true;
+    }
+  }
+
+  // Check for bird eating the bee
+  if (bird.touches(bee)) {
+    beeLives--;
+    if (beeLives <= 0) {
+      resetGame("Oops, the bird got you!");
+    }
+  }
+
+  // Display the pollen counter, petals remaining, and bee lives
+  fill(0);
+  textSize(24);
+  textAlign(LEFT, TOP);
+  text('Pollen Count: ' + pollenCount, 10, 10);
+  text('Petals Remaining: ' + petalsRemaining, 10, 40);
+  text('Bee Lives: ' + beeLives, 10, 70);
+
+  // Check if all petals have fallen
+  if (petalsRemaining === 0) {
+    bee.flyToCenter();
+    fill(255, 0, 0);
+    textSize(48);
+    textAlign(CENTER, CENTER);
+    text('All Pollen Collected', width / 2, height / 2 - 30);
+    text('You Win', width / 2, height / 2 + 30);
+    gameWon = true;
+    noLoop(); // Stop the draw loop
+  }
+}
+
+function keyPressed() {
+  if (gameStarted) {
+    if (keyCode === LEFT_ARROW) {
+      bee.velocity.x = -2;
+    } else if (keyCode === RIGHT_ARROW) {
+      bee.velocity.x = 2;
+    } else if (keyCode === UP_ARROW) {
+      bee.velocity.y = -2;
+    } else if (keyCode === DOWN_ARROW) {
+      bee.velocity.y = 2;
+    }
+  }
+}
+
+function mousePressed() {
+  if (gameWon) {
+    resetGame("Click to Begin");
+    return;
+  }
+
+  if (!gameStarted) {
+    gameStarted = true;
+  } else {
+    bee.changeDirection();
+  }
+}
+
+function createPetals() {
+  let petals = [];
+  for (let i = 0; i < 10; i++) {
+    petals.push({ angle: TWO_PI / 10 * i, fallen: false });
+  }
+  return petals;
+}
+
+function drawSunflower(x, y) {
+  // Draw the stem
+  stroke(34, 139, 34);
+  strokeWeight(5);
+  line(x, y, x, height);
+
+  // Draw the petals
+  noStroke();
+  fill(255, 204, 0);
+  for (let i = 0; i < 10; i++) {
+    if (!petals[i].fallen) {
+      ellipse(x + cos(petals[i].angle) * 30, y + sin(petals[i].angle) * 30, 50, 20);
+    }
+  }
+
+  // Draw the center
+  fill(139, 69, 19);
+  ellipse(x, y, 50, 50);
+}
+
+class Bee {
+  constructor() {
+    this.position = createVector(random(width), random(height));
+    this.velocity = createVector(random(-2, 2), random(-2, 2));
+    this.size = 20;
+    this.color = color(255, 255, 0); // Initial color of bee
+    this.wingsColor = color(255, 255, 255, 150); // Wings color
+    this.fat = false;
+  }
+
+  move() {
+    this.position.add(this.velocity);
+
+    // Keep bee within the canvas
+    if (this.position.x > width || this.position.x < 0) {
+      this.velocity.x *= -1;
+    }
+    if (this.position.y > height || this.position.y < 0) {
+      this.velocity.y *= -1;
+    }
+  }
+
+  display() {
+    // Draw bee body
+    fill(this.color);
+    let beeSize = this.fat ? this.size * 2 : this.size;
+    ellipse(this.position.x, this.position.y, beeSize, beeSize);
+
+    // Draw bee wings
+    fill(this.wingsColor);
+    ellipse(this.position.x - 10, this.position.y - 10, beeSize / 2, beeSize);
+    ellipse(this.position.x + 10, this.position.y - 10, beeSize / 2, beeSize);
+  }
+
+  touches(flower) {
+    let d = dist(this.position.x, this.position.y, flower.x, flower.y);
+    return d < this.size / 2 + 25;
+  }
+
+  changeColor() {
+    this.color = color(random(255), random(255), random(255));
+  }
+
+  land(site) {
+    this.position = site.copy();
+  }
+
+  changeDirection() {
+    this.velocity = createVector(random(-2, 2), random(-2, 2));
+  }
+
+  flyToCenter() {
+    this.fat = true;
+    this.position = createVector(width / 2, height / 2);
+    this.velocity = createVector(0, 0);
+  }
+}
+
+class Bird {
+  constructor() {
+    this.position = createVector(random(width), random(height));
+    this.velocity = createVector(random(-1, 1), random(-1, 1));
+    this.size = 40;
+  }
+
+  move() {
+    this.position.add(this.velocity);
+
+    // Keep bird within the canvas
+    if (this.position.x > width || this.position.x < 0) {
+      this.velocity.x *= -1;
+    }
+    if (this.position.y > height || this.position.y < 0) {
+      this.velocity.y *= -1;
+    }
+  }
+
+  display() {
+    // Draw bird body
+    fill(0);
+    ellipse(this.position.x, this.position.y, this.size, this.size);
+
+    // Draw beak
+    fill(255, 165, 0);
+    triangle(this.position.x + this.size / 2, this.position.y, 
+             this.position.x + this.size / 2 + 10, this.position.y - 5, 
+             this.position.x + this.size / 2 + 10, this.position.y + 5);
+
+    // Draw tail feathers
+    fill(0);
+    triangle(this.position.x - this.size / 2, this.position.y, 
+             this.position.x - this.size / 2 - 10, this.position.y - 10, 
+             this.position.x - this.size / 2 - 10, this.position.y + 10);
+
+    // Draw wings
+    ellipse(this.position.x - 10, this.position.y - 20, this.size / 2, this.size);
+    ellipse(this.position.x + 10, this.position.y - 20, this.size / 2, this.size);
+  }
+
+  touches(bee) {
+    let d = dist(this.position.x, this.position.y, bee.position.x, bee.position.y);
+    return d < (this.size / 2 + bee.size / 2);
+  }
+}
+
+function resetGame(message) {
+  fill(255, 0, 0);
+  textSize(32);
+  textAlign(CENTER, CENTER);
+  text(message, width / 2, height / 2);
+  noLoop(); // Stop the draw loop temporarily
+
+  setTimeout(() => {
+    gameWon = false;
+    gameStarted = false;
+    pollenCount = 0;
+    petalsRemaining = 10;
+    beeLives = 3;
+    petals = createPetals();
+    bee = new Bee();
+    bird = new Bird();
+    loop(); // Restart the draw loop
+  }, 3000);
+}
